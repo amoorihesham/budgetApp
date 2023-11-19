@@ -8,7 +8,7 @@ const AddBudget = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addBudget(name.current.value, max.current.value);
+    addBudget(name.current.value, parseInt(max.current.value));
   };
 
   return (
@@ -32,7 +32,7 @@ const AddBudget = () => {
         <input
           type="number"
           step={1}
-          min={0}
+          min={1}
           className="form-control"
           ref={max}
           required

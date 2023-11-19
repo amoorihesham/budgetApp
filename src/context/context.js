@@ -7,6 +7,12 @@ export const AppContextProvider = ({ children }) => {
   const [budgets, setBudgets] = useLocalStorage("budgets", []);
   const [expenses, setExpenses] = useLocalStorage("expenses", []);
 
+  const deleteRecords = () => {
+    setBudgets(() => {
+      return [];
+    });
+  };
+
   const addBudget = (name, max) => {
     setBudgets((prevState) => {
       if (prevState.find((budget) => budget.name === name)) {
@@ -25,20 +31,16 @@ export const AppContextProvider = ({ children }) => {
   };
   const deleteBudget = (budgetId) => {
     setBudgets((budgets) => budgets.filter((budget) => budget.id !== budgetId));
-    setExpenses((expanses) => expanses.filter((expanse) => expanse.budgetId !== budgetId));
+    setExpenses((expanses) =>
+      expanses.filter((expanse) => expanse.budgetId !== budgetId)
+    );
   };
   const deleteExpanse = (expanseId) => {
     setExpenses((expanses) =>
       expanses.filter((expanse) => expanse.id !== expanseId)
     );
   };
-  const editExpense = (expId, description, amount) => {
-    let expData = expenses.filter((expenes) => expenes.id !== expId);
-    expData = { ...expData, description, amount };
-    setExpenses((prevState) => {
-      return [...prevState, {}];
-    });
-  };
+
   return (
     <AppContext.Provider
       value={{
@@ -48,8 +50,8 @@ export const AppContextProvider = ({ children }) => {
         addExpense,
         getBudgetExpenses,
         deleteBudget,
-        editExpense,
         deleteExpanse,
+        deleteRecords,
       }}
     >
       {children}

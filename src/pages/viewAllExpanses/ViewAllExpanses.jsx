@@ -1,16 +1,12 @@
 import React from "react";
-import { Link, useParams } from "react-router-dom";
 import useAppContext from "../../context/context";
+import { Link } from "react-router-dom";
 import CurrencyFormat from "react-currency-format";
 
-const ViewExpenses = () => {
-  const { id } = useParams();
-  const { getBudgetExpenses, deleteExpanse } = useAppContext();
-
-  const epxpenses = getBudgetExpenses(id);
-
+const ViewAllExpanses = () => {
+  const { expenses, deleteExpanse } = useAppContext();
   return (
-    <div className="expPage py-4">
+    <div className="expsPage py-4">
       <div className="container">
         <div className="row">
           <table className="table table-striped">
@@ -22,7 +18,7 @@ const ViewExpenses = () => {
               </tr>
             </thead>
             <tbody>
-              {epxpenses?.map((expense) => (
+              {expenses?.map((expense) => (
                 <tr key={expense.id}>
                   <th>{expense.description}</th>
                   <th>
@@ -57,4 +53,4 @@ const ViewExpenses = () => {
   );
 };
 
-export default ViewExpenses;
+export default ViewAllExpanses;

@@ -1,48 +1,37 @@
 import React from "react";
-import { Link, useParams } from "react-router-dom";
 import useAppContext from "../../context/context";
 import CurrencyFormat from "react-currency-format";
 
-const ViewExpenses = () => {
-  const { id } = useParams();
-  const { getBudgetExpenses, deleteExpanse } = useAppContext();
-
-  const epxpenses = getBudgetExpenses(id);
-
+const AllBudgets = () => {
+  const { budgets, deleteBudget } = useAppContext();
   return (
-    <div className="expPage py-4">
+    <div className="bdgsPage py-4">
       <div className="container">
         <div className="row">
-          <table className="table table-striped">
+          <table className="table table-striped text-center">
             <thead>
               <tr>
-                <th>description</th>
-                <th>Amount</th>
+                <th>Name</th>
+                <th>Max Amount</th>
                 <th>Actions</th>
               </tr>
             </thead>
             <tbody>
-              {epxpenses?.map((expense) => (
-                <tr key={expense.id}>
-                  <th>{expense.description}</th>
+              {budgets?.map((budget) => (
+                <tr key={budget.id}>
+                  <th>{budget.name}</th>
                   <th>
                     <CurrencyFormat
-                      value={expense.cost}
+                      value={budget.max}
                       displayType={"text"}
                       thousandSeparator={true}
                       prefix={"$"}
                     />
                   </th>
                   <th>
-                    <Link
-                      className="btn btn-sm btn-warning"
-                      to={`/editexp/${expense.id}`}
-                    >
-                      Edit
-                    </Link>
                     <button
                       className="btn btn-sm btn-danger ms-2"
-                      onClick={() => deleteExpanse(expense.id)}
+                      onClick={() => deleteBudget(budget.id)}
                     >
                       Delete
                     </button>
@@ -57,4 +46,4 @@ const ViewExpenses = () => {
   );
 };
 
-export default ViewExpenses;
+export default AllBudgets;
